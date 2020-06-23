@@ -80,7 +80,8 @@ module Fog
           @aliyun_accesskey_id = options[:aliyun_accesskey_id]
           @aliyun_accesskey_secret = options[:aliyun_accesskey_secret]
           @aliyun_oss_bucket = options[:aliyun_oss_bucket]
-
+          ENV["ALIYUN_OSS_SDK_LOG_ENABLED"]="true"
+          ENV["ALIYUN_OSS_SDK_LOG_PATH"]="./aliyun_sdk_ruby.log"
           # check for the parameters
           missing_credentials = []
           missing_credentials << :aliyun_oss_bucket unless @aliyun_oss_bucket
