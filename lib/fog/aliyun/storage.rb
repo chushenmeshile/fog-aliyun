@@ -21,7 +21,8 @@ module Fog
       recognizes :aliyun_oss_endpoint,
                  :aliyun_oss_location,
                  :aliyun_region_id,
-                 :aliyun_oss_sdk_log_path
+                 :aliyun_oss_sdk_log_path,
+                 :aliyun_oss_sdk_log_debug
 
       requires :aliyun_accesskey_id,
                :aliyun_accesskey_secret,
@@ -80,6 +81,7 @@ module Fog
         attr_reader :aliyun_region_id
         attr_reader :aliyun_oss_bucket
         attr_reader :aliyun_oss_sdk_log_path
+        attr_reader :aliyun_oss_sdk_log_debug
 
         def initialize(options = {})
           # initialize the parameters
@@ -89,10 +91,12 @@ module Fog
           @aliyun_accesskey_secret = options[:aliyun_accesskey_secret]
           @aliyun_oss_bucket = options[:aliyun_oss_bucket]
           @aliyun_oss_sdk_log_path=options[:aliyun_oss_sdk_log_path]
+          @aliyun_oss_sdk_log_debug=options[:aliyun_oss_sdk_log_debug]
           if @aliyun_oss_sdk_log_path && !::File.exist?(@aliyun_oss_sdk_log_path)
             `touch #{@aliyun_oss_sdk_log_path}`
           end
           ENV["ALIYUN_OSS_SDK_LOG_PATH"] = @aliyun_oss_sdk_log_path
+          ENV["ALIYUN_OSS_SDK_LOG_DEBUG"] = @aliyun_oss_sdk_log_debug
           # check for the parameters
           missing_credentials = []
           missing_credentials << :aliyun_oss_bucket unless @aliyun_oss_bucket
